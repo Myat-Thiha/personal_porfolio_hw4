@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Contact — Myat Thiha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="src/css/styles.css">
+  <script src="src/js/theme-toggle.js"></script>
+  <style>
+    .char-counter {
+      font-size: 0.85rem;
+      color: rgba(234, 224, 213, 0.7);
+      text-align: right;
+      margin-top: 0.25rem;
+    }
+    .char-counter.warning {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+    .char-counter.error {
+      color: #ff6b6b;
+      font-weight: 700;
+    }
+    @keyframes flash-invalid {
+      0%, 100% { background: rgba(234, 224, 213, 0.05); }
+      50% { background: rgba(255, 107, 107, 0.3); }
+    }
+    .flash-error {
+      animation: flash-invalid 0.5s ease-in-out;
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    .fade-out {
+      animation: fadeOut 0.5s ease-in-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <noscript>This site works without JavaScript. Theme toggle and form validation require JavaScript.</noscript>
+<header>
+    <h1>Contact</h1>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="src/about.html">About</a></li>
+        <li><a href="src/projects.html">Projects</a></li>
+        <li><a href="src/experience.html">Experience</a></li>
+        <li><a href="src/contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+</header>
+<main>
+  <section>
+    <h2>Send a message</h2>
+    <form id="contactForm" action="https://httpbin.org/post" method="post" novalidate>
+      <fieldset>
+        <legend>Contact Me</legend>
+        
+        <input type="hidden" name="possible_bot" value="true">
+        <input type="hidden" name="form-errors" id="form-errors-field">
+        
+        <label for="name">Name *</label>
+        <input id="name" name="name" type="text" required minlength="2" maxlength="100" data-pattern="[A-Za-z\s\-']+" placeholder="Enter your full name">
+        
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" required maxlength="100" placeholder="your.email@example.com">
+        
+        <label for="phone">Phone Number</label>
+        <input id="phone" name="phone" type="tel" data-pattern="[\d\s\-\(\)\+]*" maxlength="20" placeholder="(123) 456-7890">
+        
+        <label for="comments">Comments *</label>
+        <textarea id="comments" name="comments" rows="5" required minlength="10" maxlength="1000" placeholder="Enter your message (at least 10 characters)..."></textarea>
+        <div class="char-counter" id="char-counter">1000 characters remaining</div>
+        
+        <button type="submit">Send</button>
+        
+        <output name="error" id="error-output" for="name email comments" aria-live="polite"></output>
+        <output name="info" id="info-output" for="name email comments" aria-live="polite"></output>
+      </fieldset>
+    </form>
+    <section class="contact-card" aria-labelledby="connect">
+      <h3 id="connect">Other ways to connect</h3>
+      <p class="lead">Prefer a quick message? Email or find me on GitHub / LinkedIn.</p>
+      <ul class="contact-list">
+        <li class="contact-item">
+          <a href="mailto:myatthiha1710@gmail.com" aria-label="Email Myat Thiha">
+            <span class="contact-text">myatthiha1710@gmail.com</span>
+          </a>
+        </li>
+
+        <li class="contact-item">
+          <a href="" aria-label="LinkedIn profile (paste URL)" target="_blank" rel="noopener noreferrer">
+            <span class="contact-text">LinkedIn (paste URL)</span>
+          </a>
+        </li>
+
+        <li class="contact-item">
+          <a href="https://github.com/Myat-Thiha" aria-label="Github profile" target="_blank" rel="noopener noreferrer">
+            <span class="contact-text">github.com/Myat-Thiha</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </section>
+</main>
+<footer>
+    <small>&copy; 2025 Myat Thiha</small>
+</footer>
+
+<script src="src/js/form-validation.js"></script>
+</body>
+</html>

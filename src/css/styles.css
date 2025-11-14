@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
 
-:root{
+/* Dark theme (default) */
+:root, :root[data-theme="dark"]{
     --black: #0a0908;    /* page background */
     --gunmetal: #22333b; /* panels / surface */
     --almond: #eae0d5;   /* primary text (light) */
@@ -12,6 +13,22 @@
     --text: var(--almond);
     --surface-text: var(--almond);
     /* dynamic viewport variable (dvh/dvw) */
+    --vh: 100dvh;
+    --radius: 8px;
+}
+
+/* Light theme - swapped color palette */
+:root[data-theme="light"]{
+    --almond: #eae0d5;     /* page background (was text) */
+    --khaki: #c6ac8f;      /* panels / surface (was accent) */
+    --black: #0a0908;      /* primary text (was background) */
+    --gunmetal: #22333b;   /* accent (was surface) */
+
+    --bg: var(--almond);
+    --surface: var(--khaki);
+    --accent: var(--gunmetal);
+    --text: var(--black);
+    --surface-text: var(--black);
     --vh: 100dvh;
     --radius: 8px;
 }
@@ -185,21 +202,99 @@ form fieldset{
 
 form legend{ 
     color: var(--text); 
-    font-weight:700; 
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
 }
 
-label{ color: var(--surface-text); }
+/* Labels stack on top of inputs */
+form label{ 
+    color: var(--text); 
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
 
-input, textarea{
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.04);
+/* Input and textarea styling */
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form textarea{
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(234, 224, 213, 0.05);
+    border: 2px solid rgba(234, 224, 213, 0.15);
+    border-radius: 6px;
     color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    box-sizing: border-box;
 }
 
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="tel"]:focus,
+form textarea:focus{
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(234, 224, 213, 0.08);
+}
+
+form textarea{
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Submit button */
 button[type="submit"]{
     background: var(--accent);
     color: var(--bg);
-    box-shadow: 0 8px 24px rgba(198,172,143,0.08);
+    border: none;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(198, 172, 143, 0.3);
+}
+
+button[type="submit"]:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(198, 172, 143, 0.4);
+}
+
+button[type="submit"]:active{
+    transform: translateY(0);
+}
+
+/* Output elements for error and info messages */
+form output{
+    display: block;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    min-height: 1rem;
+}
+
+output[name="error"]{
+    background: rgba(255, 107, 107, 0.15);
+    border: 1px solid rgba(255, 107, 107, 0.4);
+    color: #ff6b6b;
+}
+
+output[name="info"]{
+    background: rgba(77, 171, 247, 0.15);
+    border: 1px solid rgba(77, 171, 247, 0.4);
+    color: #4dabf7;
+}
+
+/* Hide empty output elements */
+output:empty{
+    display: none;
 }
 
 .contact-card{
@@ -259,5 +354,79 @@ article:has(picture) {
   }
 }
 
+/* Form validation styling */
+form input:invalid:not(:placeholder-shown):not(:focus),
+form textarea:invalid:not(:placeholder-shown):not(:focus){
+    border-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.08);
+}
 
+form input:valid:not(:placeholder-shown),
+form textarea:valid:not(:placeholder-shown){
+    border-color: rgba(34, 197, 94, 0.4);
+}
 
+/* ============================================
+   Theme Toggle 
+   ============================================ */
+
+#theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+#theme-toggle:active {
+    transform: scale(0.95);
+}
+
+#theme-toggle:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Light theme adjustments */
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+
+:root[data-theme="light"] #theme-toggle {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+:root[data-theme="light"] footer {
+    background: color-mix(in srgb, var(--accent) 15%, var(--bg) 85%);
+}
+
+/* Smooth transitions for theme switching */
+body,
+header,
+main,
+footer,
+article,
+form fieldset,
+.contact-card,
+input,
+textarea,
+button {
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
