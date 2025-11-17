@@ -5,7 +5,7 @@
   <title>Contact — Myat Thiha</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="src/css/styles.css">
-  <script src="src/js/theme-toggle.js"></script>
+  <script src="src/js/theme-toggle.js" defer></script>
   <style>
     .char-counter {
       font-size: 0.85rem;
@@ -39,8 +39,8 @@
 </head>
 <body>
   <noscript>This site works without JavaScript. Theme toggle and form validation require JavaScript.</noscript>
-<header>
-    <h1>Contact</h1>
+<header view-transition-name="header">
+  <h1>Contact</h1>
     <nav aria-label="Primary">
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -51,7 +51,7 @@
       </ul>
     </nav>
 </header>
-<main>
+<main view-transition-name="main">
   <section>
     <h2>Send a message</h2>
     <form id="contactForm" action="https://httpbin.org/post" method="post" novalidate>
@@ -105,8 +105,8 @@
     </section>
   </section>
 </main>
-<footer>
-    <small>&copy; 2025 Myat Thiha</small>
+<footer view-transition-name="footer">
+  <small>&copy; 2025 Myat Thiha</small>
 </footer>
 
 <script src="src/js/form-validation.js"></script>

@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Personal portfolio for Myat Thiha">
   <link rel = "stylesheet" href = "src/css/styles.css">
-  <script src="src/js/theme-toggle.js"></script>
+  <script src="src/js/theme-toggle.js" defer></script>
 </head>
 <body>
   <noscript>This site works without JavaScript. Theme toggle requires JavaScript.</noscript>
-  <header>
+  <header view-transition-name="header">
     <h1>Myat Thiha</h1>
     <nav aria-label="Primary">
       <ul>
@@ -23,7 +23,7 @@
     </nav>
   </header>
 
-  <main>
+  <main view-transition-name="main">
     <section aria-labelledby="intro">
         <h2 id="intro">Hello!</h2>
         <article>
@@ -72,7 +72,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer view-transition-name="footer">
     <small>&copy; 2025 Myat Thiha</small>
   </footer>
 </body>

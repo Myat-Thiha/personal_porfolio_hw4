@@ -430,3 +430,65 @@ textarea,
 button {
     transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+/* ==========================
+     View Transition API styles
+     - provide root animation and opt-in named regions
+     - respect prefers-reduced-motion
+     ========================== */
+/* Opt pages into browser-handled cross-document transitions (MPA-style) */
+@view-transition {
+    navigation: auto;
+}
+@media (prefers-reduced-motion: no-preference) {
+    /* Encourage the UA to capture named regions by assigning view-transition-name */
+    header { view-transition-name: header; }
+    main { view-transition-name: main; }
+    footer { view-transition-name: footer; }
+
+    /* Root-level animations (fallback if per-region snapshots are not produced) */
+    ::view-transition-old(root) {
+        animation: vt-root-out 420ms cubic-bezier(.22,.9,.32,1) both;
+    }
+    ::view-transition-new(root) {
+        animation: vt-root-in 420ms cubic-bezier(.22,.9,.32,1) both;
+    }
+
+    /* Gentle per-region fades/translates when user agent has captured them */
+    ::view-transition-old(group(header)) {
+        animation: vt-header-out 360ms ease both;
+    }
+    ::view-transition-new(group(header)) {
+        animation: vt-header-in 360ms ease both;
+    }
+
+    ::view-transition-old(group(main)) {
+        animation: vt-main-out 420ms ease both;
+    }
+    ::view-transition-new(group(main)) {
+        animation: vt-main-in 420ms ease 60ms both;
+    }
+
+    @keyframes vt-root-out {
+        from { transform: translateY(0); opacity: 1; }
+        to   { transform: translateY(-6px) scale(.998); opacity: 0.0; }
+    }
+    @keyframes vt-root-in {
+        from { transform: translateY(8px) scale(.998); opacity: 0; }
+        to   { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes vt-header-out { from { transform: translateY(0); opacity:1 } to { transform: translateY(-6px); opacity:0 } }
+    @keyframes vt-header-in  { from { transform: translateY(6px); opacity:0 } to { transform: translateY(0); opacity:1 } }
+    @keyframes vt-main-out   { from { transform: translateY(0); opacity:1 } to { transform: translateY(-8px); opacity:0 } }
+    @keyframes vt-main-in    { from { transform: translateY(10px); opacity:0 } to { transform: translateY(0); opacity:1 } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Disable view transition animations for users who prefer reduced motion */
+    ::view-transition-old(root), ::view-transition-new(root),
+    ::view-transition-old(group(header)), ::view-transition-new(group(header)),
+    ::view-transition-old(group(main)), ::view-transition-new(group(main)) {
+        animation: none !important;
+    }
+}
